@@ -1,0 +1,219 @@
+---
+title: "Case1_Case_Study_Road+Map"
+author: "Luis Rincones"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+---
+
+# Case Study 1: How Does a Bike-Share Navigate Speedy Success?<br>
+
+This document will describe the work done using the google analytics process.
+**APPASA**  (Ask, Prepare, Process, Analyze, Share and Act)
+
+
+## ASK<br>
+The first phase of the APPASA is Ask<br>
+
+The problem I am trying to solve:<br>
+**How do annual members and casual riders use Cyclistic bikes differently? **<br>
+
+**How can my insights drive business decisions?**<br>
+
+The differences in the different variables and their relations, would give key information for the difference between members user (bought an annual plan) and casual user did not<br> 
+The results of my answers, should generate useful information to guide the future Marketing Program<br>
+
+
+**Identify the business task**<br>
+Analyze the data available their relations, to discover the story of the differences between members and casual users<br>
+
+**Consider key stakeholders**<br>
+
+* Director of Marketing<br>
+* My manager responsible for campaigns development and initiatives to promote the bike share program<br>
+* The Cyclistic marketing analytics team, I am part of this team<br>
+* Cyclistic executive team, the decision makers to approve or disapprove the recommendations<br>
+
+
+## PREPARE<br>
+The second phase of phase of the APPASA is Prepare<br>
+
+Data Source<br>
+The data is in the divvy website 
+“ https://divvy-tripdata.s3.amazonaws.com/index.html ”
+The data is organized in<br> 
+* Monthly Trip data, latest 14 months
+* Data before 2020 for Stations, trips aggregated in two quarters, and some in one quarter<br>
+
+The data is credible, it is not secondhand information and similar data has been used before<br>
+
+Each trip is anonymized and includes:<br>
+* Trip start day and time<br>
+* Trip end day and time<br>
+* Trip start station<br>
+* Trip end station<br>
+* Rider type<br>
+
+The data has been processed to remove trips that are taken by staff as they service and inspect the system; and any trips that were below 60 seconds in length (potentially false starts or users trying to re-dock a bike to ensure it was secure).<br>
+
+The data fulfills  the ROCCC criteria<br>
+* Reliable<br>
+* Original<br>
+* Comprehensive<br>
+* Current<br>
+* Cited<br>
+
+The Data is provided by the Data Owner from their systems, first party information. This takes care of Reliable and Original.<br>
+
+Comprehensive. The columns describe the trip origin, destination, starting and ending times, geo location and membership<br>
+
+Current, the latest file is May 2021<br>
+
+Cited a quick google search gave several mentions among others for “data.cityofchicago” and “gov.publicstuff”<br>
+
+The data is provided by the company in the site<br>
+https://www.divvybikes.com/system-data <br>
+according to the license https://www.divvybikes.com/data-license-agreement <br>
+
+The data is:<br>
+Accurate the records reflect a unique trip<br> 
+Complete (it provides the columns indicated)<br> 
+Consistent among the 14 files I will use, the source is trustable, and it has been used previously<br>
+
+The data provided per trip and rider type will describe the trips, I need to discover the differences that matters for my question<br>
+I only found a few records where the start date is later than the end date<br>
+
+
+I created a R Project(Case_1) in my local documents file and use its directory to store the datat<br>
+
+* The data is organized by month, the data it is consistent with the month indicated by the name<br>
+
+* The records describe every trip and allows to extract the differences<br> 
+* An initial review showed the variables format and content were consistent<br>
+* Dates fields to be managed with lubridate functions<br>
+
+ 
+A description of all data sources used<br>
+
+* One file per month from April 2020 to May 2021<br>
+* Each file with 13 columns will use 6 to work with.
+* Columns indicated below<br> 
+* **ride_id**<br>
+* rideable_type<br>
+* **started_at**<br>
+* **ended_at**<br>
+* start_station_name<br>
+* **start_station_id**<br>
+* end_station_name<br>
+* **end_station_id**<br>
+* start_lat<br>
+* start_lng<br>
+* end_lat<br>
+* end_lng<br>
+* **member_casual**<br>
+
+The six columns in bold will be used<br>
+The four geo location columns (lat and long) will not be used to analyze differences<br>
+The rideable type is a constant value, will not be used<br>
+The two station name will not be used, the stations id suffice<br>
+
+## PROCESS<br>
+The third phase of phase of the APPASA is Process<br>
+
+What tools are you choosing and why?
+I am using the R programming language with RStudio<br>
+
+I made a temporary copy(temp1) of each original file using the six columns indicated above<br>
+A second temporary copy(temp2) of as the working file. Any issue I have temp1 to recover<br>
+Read the zipped csv files, cleaned and manipulate each then merged to the unique file to work with<br>
+Use the str, head and tail function to look at the format and content<br>
+To define the cleaning, data manipulation, did a review and short analysis of one month data, the findings were used for the final coding with all the files<br> 
+Checked for negative durations, converted the dates usig lubridate<br>
+Create a column for duration, two column with weekday for start and end and two columns for start and end hour<br>
+This code is included in a Markdown file for sharing <br>
+
+## ANALYZE<br>
+The fourth phase of phase of the APPASA is Analyze<br>
+
+The data to work in the analysis was a single file with more than four million records<br>
+The format for dates, duration and hours was done using lubridate<br>
+The duration in seconds is a large number even when expresed in other time measures, for my analysis is just a number to measure how long each trip was<br>
+
+The analysis showed that the members have more trips than casuals, however time used by casuals was greater than members, it is expected since casuals are expected to have more non working time. Only in the 6am to 8am hours the members have more duration than casuals.
+The answer to the question<br> 
+How do annual members and casual riders use Cyclistic bikes differently?<br>
+Is indicated in the charts done using ggplot and tableau.<br>
+
+My results are in the summary Rmardown document conclusion<br>
+
+\newpage
+## SHARE<br> 
+The fifth phase of phase of the APPASA is Share<br>
+
+I was able to answer the question, using simple visualizations comparing  the number of trips and durations, for members vs casual, summary with basic statistics to complement the story showed with the visualizations.<br>
+
+The amount of bycicle used by the casuals in greater than members except for the early hour (6 to 8 am), mebers start biking to work<br>
+
+I use simple visualizations, bar charts and histograms to facilitate the communicatiosn with the different stakeholders. The charts elaborated with ggplot and tableau are available for the different stakeholders.
+Example<br>
+![Trips Distribution](Trips_Distribution_day.png)
+
+
+## ACT
+The sixth and final phase of phase of the APPASA is Act<br>
+
+**My final conclusion is that the differences among members and casuals do exist**<br>
+
+In order to complement the information for the marketing campaign to gather more members from the casual. I suggest the following considerations.
+
+How is the revenue distributed among the different plans<br>
+Do the registration requirements for members allow to register visitors?<br>
+How the change of membership will translate in revenues<br> 
+
+Regarding Chicago Visitors and their length of stay<br>
+I found the following information searching in Google<br>
+
+Information from the enjoyillinois.com in the 
+2016 LEISURE VISITOR PROFILE FOR THE STATE OF ILLINOIS AND THE CITY OF CHICAGO<br>
+Page 82 in Chart 65 Segment: 2016 Leisure Stays (%)<br>
+
+indicated the visit length:<br>
+* day stay 51%<br>
+* 1 day stay 16%<br>
+* 2 day stay 15%<br>
+* 3 day stay 8%<br>
+* 4 to 7 days 8%<br>
+* more than 8 days 2%<br>
+
+
+**My recommendations**<br> 
+The differences by themselves are just a consideration for a marketing campaing to increase membership, other considerations should be analyzed<br>
+
+Among other consideraations:<br>
+Analyze the feasibility for new plans alternatives that appeal for the visitors and with an increase in revenues?<br> 
+For example two day plans?<br>
+
+## to be done
+
+Key tasks 
+1.Create your portfolio.
+2.Add your case study.
+3.Practice presenting your case study to a friend or family member.
+
+Deliverable Your top three recommendations based on your analysis
+
+
+
+
+
+
+
+
+
+
+
+
+
+
