@@ -3,8 +3,8 @@ Case Study 1: How Does a Bike-Share Navigate Speedy Success?
 
 
 The RStudio files used for Case1 Analysis are<br>
-* Case1_v1_Reading_Files.R This file is the code for reading, merging and saving the merged file, to serve as input for the Analysis<br>
-* Case1_prettydoc.Rmd This file is the code for the analysis done using R, it renders in HTML<br>
+* Case1_Reading_Files.R This file is the code for reading, merging and saving the merged file, to serve as input for the Analysis<br>
+* Case1_Analyze.Rmd This file is the code for the analysis done using R, it renders in HTML<br>
 * Case1_Study_Road_Map.Rmd This file describe the **APPASA**  six phases recommended by Google for Data Analysis<br>
 
 
